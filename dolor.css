@@ -1,9 +1,18 @@
-/* CSS declarations go here */
+.palette {
+	margin: 10px;
+}
+
+.palette div {
+	position: relative;
+	float: left;
+	width: 100px;
+	height: 100px;
+	margin: 0px 5px 50px 0px;
+}
+
 .picker {
 	width: 100px;
 	height: 100px;
 	margin: 10px;
-}
-
-.orange {
+	clear:both;
 }

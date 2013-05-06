@@ -4,8 +4,17 @@
 </head>
 
 <body>
+  {{> palette}}
   {{> colors}}
 </body>
+
+<template name="palette">
+	<div class="palette">
+	{{#each colors}}
+		<div style="background-color:{{this}}"></div>
+	{{/each}}
+</div>
+</template>
 
 <template name="colors">
 	<div class="picker" id="picker" style="background-color:{{color}}"></div>

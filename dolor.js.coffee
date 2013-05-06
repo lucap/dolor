@@ -1,8 +1,12 @@
-COLORS = ["yellow", "orange", "red"]
+COLORS = ["yellow", "orange", "red", "pink"]
 Cells = new Meteor.Collection('cells')
 
 if Meteor.isClient
   Meteor.subscribe('cells')
+
+
+  Template.palette.colors = -> 
+    COLORS
 
   Template.colors.color = -> 
     cell =  Cells.findOne()
