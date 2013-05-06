@@ -10,9 +10,15 @@
 	margin: 0px 0px 50px 0px;
 }
 
-.picker {
+.cell-container {
+	clear:both;
+	margin: 10px;
+}
+
+.cell-container div {
+	position: relative;
+	float: left;
 	width: 100px;
 	height: 100px;
-	margin: 10px;
-	clear:both;
+	margin: 0px;
 }

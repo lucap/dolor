@@ -1,9 +1,15 @@
-COLORS = ["yellow", "orange", "red", "pink"]
+COLORS = ["yellow", "orange", "red", "pink", "purple"]
+
 Cells = new Meteor.Collection('cells')
 
 if Meteor.isClient
-  Meteor.subscribe('cells')
-
+  Meteor.startup( ->
+    cell_id = Session.get('cell_id')
+    if !cell_id
+      cell_id = Cells.insert({color: "cyan"})
+    Session.set('cell_id', cell_id)
+  )
+  
   Template.palette.colors = -> 
     COLORS
 
@@ -11,22 +17,14 @@ if Meteor.isClient
     'click, touchstart': (evt) ->
       $this = $(evt.target)
       selected_color = $this.css('background-color')
+      Cells.update(Session.get('cell_id'), {color: selected_color})
 
-      cell =  Cells.findOne()
-      Cells.update(cell._id, {color: selected_color})
-
-  Template.colors.color = -> 
-    cell =  Cells.findOne()
-    if cell
-      return cell.color
-    else
-      return "black"
+  Template.cells.colors = -> 
+    cells = Cells.find({})
+    console.log cells
+    cells
 
 if Meteor.isServer
   Meteor.startup( ->
-    if not Cells.findOne({})
-      Cells.insert({color: "black"})
+    {}
   )
-
-  Meteor.publish "cells", ->
-    Cells.findOne({})
