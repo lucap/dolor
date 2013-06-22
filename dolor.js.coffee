@@ -4,6 +4,8 @@ Cells = new Meteor.Collection('cells')
 
 if Meteor.isClient
   Meteor.startup( ->
+    settings = {"control": "wheel"}
+    $('#colorpicker').minicolors(settings)
     cell_id = Session.get('cell_id')
     if !cell_id
       cell_id = Cells.insert({color: "cyan"})

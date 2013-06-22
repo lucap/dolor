@@ -4,8 +4,11 @@
 </head>
 
 <body>
-  {{> palette}}
-  {{> cells}}
+	{{#constant}}
+		<input id="colorpicker"></input>
+    {{/constant}}
+  	{{> palette}}
+  	{{> cells}}
 </body>
 
 <template name="palette">
