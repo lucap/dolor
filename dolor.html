@@ -7,17 +7,8 @@
 	{{#constant}}
 		<input id="colorpicker"></input>
     {{/constant}}
-  	{{> palette}}
   	{{> cells}}
 </body>
-
-<template name="palette">
-	<div class="palette">
-	{{#each colors}}
-		<div style="background-color:{{this}}"></div>
-	{{/each}}
-</div>
-</template>
 
 <template name="cells">
 	<div class="cell-container">

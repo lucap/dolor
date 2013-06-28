@@ -1,28 +1,29 @@
-COLORS = ["yellow", "orange", "red", "pink", "purple"]
-
 Cells = new Meteor.Collection('cells')
 
 if Meteor.isClient
+
+  current_color = 'cyan'
+
   Meteor.startup( ->
-    settings = {"control": "wheel"}
-    $('#colorpicker').minicolors(settings)
+
     cell_id = Session.get('cell_id')
     if !cell_id
       cell_id = Cells.insert({color: "cyan"})
     Session.set('cell_id', cell_id)
+
+    settings = 
+      control: "wheel"
+      inline: true
+      changeDelay: 100
+      change: (hex) ->
+        Cells.update(Session.get('cell_id'), {color: hex})
+
+    $('#colorpicker').minicolors(settings)
   )
 
   Meteor.setInterval( ->
     Meteor.call('keepalive', Session.get('cell_id'))
   , 5000)
-  
-  Template.palette.colors = -> 
-    COLORS
-
-  Template.palette.events
-    'click, touchstart': (evt) ->
-      selected_color = $(evt.target).css('background-color')
-      Cells.update(Session.get('cell_id'), {color: selected_color})
 
   Template.cells.colors = -> 
     Cells.find({})
