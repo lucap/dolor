@@ -1,13 +1,5 @@
-.palette {
-	margin: 10px;
-}
-
-.palette div {
-	position: relative;
-	float: left;
-	width: 100px;
-	height: 100px;
-	margin: 0px 0px 50px 0px;
+.picker-container {
+	margin: 20px 0px 20px 50px;
 }
 
 .cell-container {
