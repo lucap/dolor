@@ -45,7 +45,7 @@ if Meteor.isServer
     now = (new Date()).getTime()
     Connections.find({last_seen: {$lt: (now - 60 * 1000)}}).forEach( (connection)->
       Connections.remove(connection._id)
-      Cells.update(connection.cell_id, {open: true})
+      Cells.update(connection.cell_id, {open: true, color: DEFAULT_COLOR})
     )
   , 5000)
 
