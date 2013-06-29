@@ -14,7 +14,7 @@ if Meteor.isClient
     settings = 
       control: "wheel"
       inline: true
-      changeDelay: 100
+      changeDelay: 10
       change: (hex) ->
         Cells.update(Session.get('cell_id'), {color: hex})
 
