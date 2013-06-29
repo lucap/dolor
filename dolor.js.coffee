@@ -1,20 +1,18 @@
+DEFAULT_COLOR = 'white'
+
 Cells = new Meteor.Collection('cells')
 
 if Meteor.isClient
 
-  current_color = 'cyan'
-
   Meteor.startup( ->
-
-    cell_id = Session.get('cell_id')
-    if !cell_id
-      cell_id = Cells.insert({color: "cyan"})
-    Session.set('cell_id', cell_id)
-
+    Meteor.call 'get_cell', (e, r) ->
+                  Session.set('cell_id', r._id)
+                  
     settings = 
       control: "wheel"
       inline: true
       changeDelay: 10
+      defaultValue: DEFAULT_COLOR
       change: (hex) ->
         Cells.update(Session.get('cell_id'), {color: hex})
 
@@ -26,7 +24,7 @@ if Meteor.isClient
   , 5000)
 
   Template.cells.colors = -> 
-    Cells.find({})
+    Cells.find({}, sort="position")
 
 if Meteor.isServer
   Connections = new Meteor.Collection('connections')
@@ -36,16 +34,23 @@ if Meteor.isServer
       if !Connections.findOne({cell_id: cell_id})
         Connections.insert({cell_id: cell_id})
       Connections.update({cell_id: cell_id}, {$set: {last_seen: (new Date()).getTime()}})
+  
+    get_cell: ->
+      cell = Cells.findOne({open: true})
+      Cells.update(cell._id, {open: false})
+      cell
   )
 
   Meteor.setInterval( ->
     now = (new Date()).getTime()
     Connections.find({last_seen: {$lt: (now - 60 * 1000)}}).forEach( (connection)->
       Connections.remove(connection._id)
-      Cells.remove(connection.cell_id)
+      Cells.update(connection.cell_id, {open: true})
     )
   , 5000)
 
   Meteor.startup( ->
-
+    Cells.remove({})
+    for i in [0..100]
+      Cells.insert({color: DEFAULT_COLOR, position: i, open: true})
   )
