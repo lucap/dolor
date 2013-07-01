@@ -10,12 +10,19 @@
     	{{/constant}}
      </div>
   	{{> cells}}
+  	{{> map}}
 </body>
 
 <template name="cells">
 	<div class="cell-container">
-	{{#each colors}}
-		<div class="cell" style="background-color:{{this.color}}"></div>
-	{{/each}}
-</div>
+		{{#each colors}}
+			<div class="cell" style="background-color:{{this.color}}"></div>
+		{{/each}}
+	</div>
+</template>
+
+<template name='map'>
+	{{#constant}}
+		<div id="map"></div>
+	{{/constant}}
 </template>

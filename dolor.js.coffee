@@ -1,4 +1,4 @@
-DEFAULT_COLOR = 'white'
+DEFAULT_COLOR = 'black'
 
 Cells = new Meteor.Collection('cells')
 
@@ -17,6 +17,7 @@ if Meteor.isClient
         Cells.update(Session.get('cell_id'), {color: hex})
 
     $('#colorpicker').minicolors(settings)
+
   )
 
   Meteor.setInterval( ->
@@ -25,6 +26,9 @@ if Meteor.isClient
 
   Template.cells.colors = -> 
     Cells.find({}, sort="position")
+
+  Template.map.rendered = ->
+    window.calendarWeekHour('#map', 400, 400, true)
 
 if Meteor.isServer
   Connections = new Meteor.Collection('connections')
@@ -51,6 +55,9 @@ if Meteor.isServer
 
   Meteor.startup( ->
     Cells.remove({})
-    for i in [0..100]
+    for i in [0..5]
       Cells.insert({color: DEFAULT_COLOR, position: i, open: true})
   )
+
+
+    
