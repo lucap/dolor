@@ -4,22 +4,13 @@
 </head>
 
 <body>
+	{{> map}}
 	<div class="picker-container">
 		{{#constant}}
 			<input id="colorpicker"></input>
     	{{/constant}}
      </div>
-  	{{> map}}
-  	{{> cells}}
 </body>
-
-<template name="cells">
-	<div class="cell-container">
-		{{#each colors}}
-			<div class="cell" style="background-color:{{this.color}}"></div>
-		{{/each}}
-	</div>
-</template>
 
 <template name='map'>
 	{{#constant}}

@@ -18,9 +18,6 @@ if Meteor.isClient
       defaultValue: DEFAULT_COLOR
       change: (hex) ->
         Cells.update(Session.get('cell_id'), {color: hex})
-        #cell = Cells.findOne(Session.get('cell_id'))
-        #item = grid.selectAll("rect")[0][cell.position]
-        #d3.select(item).style('fill', hex)
 
     $('#colorpicker').minicolors(settings)
     grid = window.calendarWeekHour('#map', 400, 400, true)
@@ -29,10 +26,6 @@ if Meteor.isClient
   Meteor.setInterval( ->
     Meteor.call('keepalive', Session.get('cell_id'))
   , 5000)
-
-  Template.cells.colors = -> 
-    #Cells.find({}).forEach((i)-> console.log i)
-    Cells.find({}, sort="position")
 
   Template.map.rendered = ->
     Deps.autorun ->

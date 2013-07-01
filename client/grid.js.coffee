@@ -11,7 +11,6 @@ match the (calculated first) width
 ###
 window.calendarWeekHour = (id, width, height) ->
   calData = randomData(width-20, height+0)
-  #console.log calData
   grid = d3.select(id).append("svg")
                       .attr("width", width)
                       .attr("height", height)
@@ -31,11 +30,8 @@ window.calendarWeekHour = (id, width, height) ->
     .attr("y", (d) -> d.y)
     .attr("width", (d) -> d.width)
     .attr("height", (d) -> d.height)
-    .on("mouseover", -> d3.select(this).style "fill", "#0F0")
-    .on("mouseout", -> d3.select(this).style "fill", "#FFF")
     .on("click", -> console.log d3.select(this))
     .style("fill", "#FFF")
-    #.style("stroke", "#555")
 
   grid
 
