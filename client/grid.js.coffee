@@ -9,9 +9,9 @@ param height       height of the grid in pixels
 param square       true/false if you want the height to
 match the (calculated first) width
 ###
-window.calendarWeekHour = (id, width, height, square) ->
-  calData = randomData(width, height, square)
-  console.log calData
+window.calendarWeekHour = (id, width, height) ->
+  calData = randomData(width-20, height+0)
+  #console.log calData
   grid = d3.select(id).append("svg")
                       .attr("width", width)
                       .attr("height", height)
@@ -34,7 +34,10 @@ window.calendarWeekHour = (id, width, height, square) ->
     .on("mouseover", -> d3.select(this).style "fill", "#0F0")
     .on("mouseout", -> d3.select(this).style "fill", "#FFF")
     .on("click", -> console.log d3.select(this))
-    .style("fill", "#FFF").style("stroke", "#555")
+    .style("fill", "#FFF")
+    #.style("stroke", "#555")
+
+  grid
 
 
 ###
@@ -48,10 +51,10 @@ randomData()        returns an array: [
 [hour1, hour2, hour3, ...]
 ]
 ###
-randomData = (gridWidth, gridHeight, square) ->
+randomData = (gridWidth, gridHeight) ->
   data = new Array()
-  gridItemWidth = gridWidth / 24
-  gridItemHeight = (if (square) then gridItemWidth else gridHeight / 7)
+  gridItemWidth = gridWidth / 10
+  gridItemHeight = gridItemWidth
   startX = gridItemWidth / 2
   startY = gridItemHeight / 2
   stepX = gridItemWidth
@@ -62,11 +65,11 @@ randomData = (gridWidth, gridHeight, square) ->
   count = 0
   index_a = 0
 
-  while index_a < 7
+  while index_a < 10
     data.push new Array()
     index_b = 0
 
-    while index_b < 24
+    while index_b < 10
       newValue = Math.round(Math.random() * (100 - 1) + 1)
       data[index_a].push
         time: index_b
