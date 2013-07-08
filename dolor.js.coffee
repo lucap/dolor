@@ -62,6 +62,14 @@ if Meteor.isServer
     )
   , 5000)
 
+  Meteor.setInterval( ->
+    Cells.find().forEach( (cell) -> 
+        if cell.open and Math.random() >= .95
+          color = '#'+Math.floor(Math.random()*16777215).toString(16)
+          Cells.update(cell._id, {$set: {color: color}})
+      ) 
+  , 500)
+
   Meteor.startup( ->
     Cells.remove({})
     for i in [0..99]
